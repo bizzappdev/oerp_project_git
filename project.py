@@ -23,6 +23,44 @@ class git_setting(osv.osv):
             git_url = git_url.replace("//", "//%s:%s@" % (user_name, password))
         return git_url
 
+    def clone_project(self, cr, uid, ids, project_data, context={}):
+        for self_rec in self.browse(cr, uid, ids, context=context):
+            git_url = self.get_url(project_data['git_url'], self_rec.username,
+                                   self_rec.password)
+            git_repo = git.Git()
+            project_path = os.path.join(
+                self_rec.git_folder,
+                project_data['git_url'].split("/")[-1].split(".")[0])
+            if os.path.exists(project_path):
+                continue
+            git_repo.clone(git_url, project_path)
+
+        return True
+
+    def pull_project(self, cr, uid, ids, project_data, context={}):
+        for self_rec in self.browse(cr, uid, ids, context=context):
+            project_path = os.path.join(
+                self_rec.git_folder,
+                project_data['git_url'].split("/")[-1].split(".")[0])
+            if os.path.exists(project_path):
+                git_pro = git.Repo(project_path)
+                git_pro.remotes.origin.pull()
+
+        return True
+
+    def git_clone_pull(self, cr, uid, ids, project_data, context={}):
+        for self_rec in self.browse(cr, uid, ids, context=context):
+            project_path = os.path.join(
+                self_rec.git_folder,
+                project_data['git_url'].split("/")[-1].split(".")[0])
+            if os.path.exists(project_path):
+                self.pull_project(cr, uid, [self_rec.id], project_data,
+                                  context=context)
+            else:
+                self.clone_project(cr, uid, [self_rec.id], project_data,
+                                   context=context)
+        return True
+
 git_setting()
 
 
@@ -34,6 +72,14 @@ class project_project(osv.osv):
         'git_path': fields.char('Git Repository', size=256),
     }
 
+    def get_git_repo(self, cr, uid, ids, context={}):
+        sett_pool = self.pool.get('git.setting')
+        set_ids = sett_pool.search(cr, uid, [])
+        for self_rec in self.browse(cr, uid, ids, context=context):
+            sett_pool.git_clone_pull(
+                cr, uid, set_ids,
+                {'git_url': self_rec.git_path})
+        return True
 
 project_project()
 
