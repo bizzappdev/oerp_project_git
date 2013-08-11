@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
             <tree string="Git Commit">
                 <field name="message"/>
-                <field name="name"/>
+                <field name="display_name"/>
                 <field name="author"/>
             </tree>
             </field>
@@ -23,14 +23,10 @@
             <field name="arch" type="xml">
             <form string="Git Commit">
                 <field name="git_id"/>
-                <field name="name"/>
                 <field name="author"/>
-                <field name="date"/>
+                <field name="name"/>
                 <field name="message"/>
-                <field name="type"/>
-                <field name="exception"/>
-                <field name="log"/>
-                <field name="task_ids"/>
+                <field name="diff" colspan="4" readonly="1" nolabel="1"/>
             </form>
             </field>
         </record>
@@ -45,12 +41,7 @@
                 <field name="git_id"/>
                 <field name="name"/>
                 <field name="author"/>
-                <field name="date"/>
                 <field name="message"/>
-                <field name="type"/>
-                <field name="exception"/>
-                <field name="log"/>
-                <field name="task_ids"/>
             </search>
             </field>
         </record>
