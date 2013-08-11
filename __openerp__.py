@@ -19,7 +19,7 @@
         'project_sequence.xml',
     ],
     'external_dependencies': {
-        'python': ['GitPython'],
+        'python': ['git'],
     },
     'installable': True,
     'auto_install': False,
