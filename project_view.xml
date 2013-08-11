@@ -30,5 +30,34 @@
             </field>
         </record>
 
+        <record id="view_project_task_form" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="before">
+                    <field name="tracking_number"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Commits">
+                        <field name="related_commit_ids" colspan="1"
+                            nolable="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_project_task_kan_form" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="before">
+                    <field name="tracking_number"/><br/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>
