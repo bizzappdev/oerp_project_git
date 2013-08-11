@@ -16,7 +16,11 @@
         'project_view.xml',
         'git_commit_view.xml',
         'git_setting_view.xml',
+        'project_sequence.xml',
     ],
+    'external_dependencies': {
+        'python': ['GitPython'],
+    },
     'installable': True,
     'auto_install': False,
 }
