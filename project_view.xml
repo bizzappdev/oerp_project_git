@@ -18,9 +18,10 @@
                                 type="object"/>
                             <newline/>
                             <separator string="Run time manipulation" colspan="4"/>
-                            <field name="branch_id" widget="selection"
+                            <field name="branch_id"
                                 attrs="{'invisible': [('git_project_id','=', False)]}"
                                 on_change="onchange_branch(branch_id, commit_ids)"
+                                domain="[('git_project_id', '=', git_project_id)]"
                                 nolabel="1" placeholder="Select Branch to listout commits"/>
                             <field name="commit_ids" colspan="4" nolabel="1"/>
                         </group>
@@ -37,7 +38,7 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='project_id']" position="before">
-                    <field name="tracking_number"/>
+                    <field name="tracking_number" readonly="1"/>
                 </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page string="Commits">

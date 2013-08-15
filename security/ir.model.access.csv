@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_git_setting,access_git_setting,model_git_setting,,1,1,1,1
+access_git_commit,access_git_commit,model_git_commit,,1,1,1,1
+access_git_branch,access_git_branch,model_git_branch,,1,1,1,1
+access_git_project,access_git_project,model_git_project,,1,1,1,1

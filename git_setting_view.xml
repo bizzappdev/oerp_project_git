@@ -25,7 +25,7 @@
             <form string="Git Setting">
                 <field name="name" select="1"/>
                  <field name="username"/>
-                <field name="password"/>
+                <field name="password" password="1"/>
                 <field name="git_folder"/>
             </form>
             </field>

@@ -31,6 +31,9 @@ def get_diff_html(base_commit, main_commit=False):
                 final_string += "\n\n--- %s" % diff_obj.a_blob.path
             else:
                 final_string += "\n\n%s" % diff_obj.diff
+        elif diff_obj.new_file and not diff_obj.diff:
+            final_string += "\n\n+++ %s" % diff_obj.a_blob.path
+
         else:
             final_string += "\n\n%s" % diff_obj.diff
 
@@ -67,7 +70,7 @@ class git_setting(osv.osv):
         'name': fields.char("Name", size=64, help="Name of the setting To"),
         'username': fields.char('Username', size=64,
                                 help="username of the Git repo"),
-        'password': fields.char('password', size=64,
+        'password': fields.char('Password', size=64,
                                 help="Password for Git repo"),
         'git_folder': fields.char('Git Folder', size=256,
                                   help="Static Folder from Sever which have"
@@ -172,7 +175,7 @@ git_setting()
 
 class git_project(osv.osv):
     _name = 'git.project'
-    _rec_name = "git_path"
+    _rec_name = "project_id"
 
     _columns = {
         'git_path': fields.char('Git Repository', size=256),
@@ -221,13 +224,14 @@ class project_project(osv.osv):
         sett_pool = self.pool.get('git.setting')
         set_ids = sett_pool.search(cr, uid, [])
         for self_rec in self.browse(cr, uid, ids, context=context):
-           #sett_pool.git_clone_pull(
-           #    cr, uid, set_ids,
-           #    {'git_url': self_rec.git_path, 'id': self_rec.id,
-           #     'git_project_id': (self_rec.git_project_id and
-           #                        self_rec.git_project_id.id or False)
-           #    })
-           #cr.commit()
+            sett_pool.git_clone_pull(
+                cr, uid, set_ids,
+                {
+                    'git_url': self_rec.git_path, 'id': self_rec.id,
+                    'git_project_id': (self_rec.git_project_id and
+                                       self_rec.git_project_id.id or False)
+                })
+            cr.commit()
             self_rec = self.browse(cr, uid, self_rec.id, context=context)
             sett_pool.get_all_commits(cr, uid, set_ids, self_rec,
                                       context=context)
@@ -306,16 +310,25 @@ class project_task(osv.osv):
         return ret_val
 
     _columns = {
-        'tracking_number': fields.char('Tracking Number', size=16),
+        'tracking_number': fields.char('Tracking Number', size=16,
+                                       help="Mention this number in commit"),
         'related_commit_ids': fields.function(
             _get_related_commit, method=True, string='Related commit',
             type='many2many', relation="git.commit", store=False),
     }
 
-    _defaults = {
-        'tracking_number': lambda obj, cr, uid, context: obj.pool.get(
-            'ir.sequence').get(cr, uid, 'project.task.tracking'),
-    }
+    def create(self, cr, uid, values, context=None):
+        """
+        #TODO make doc string
+        Comment this
+        """
+        if context is None:
+            context = {}
+        #TODO : process on result
+        values['tracking_number'] = self.pool.get('ir.sequence').get(
+            cr, uid, 'project.task.tracking')
+        return super(project_task, self).create(cr, uid,
+                                                values, context=context)
 
 project_task()
 

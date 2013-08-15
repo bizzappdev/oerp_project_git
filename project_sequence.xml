@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="1">
 
-        <!-- Sequences for sale.order -->
+        <!-- Sequences for Project Task Tracking -->
         <record id="seq_type_task_tracking" model="ir.sequence.type">
             <field name="name">Project Task Tracking</field>
             <field name="code">project.task.tracking</field>
