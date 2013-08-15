@@ -72,8 +72,8 @@
         </record>
 
         <menuitem id="menu_git_commit"
-            parent="project.menu_project_management"
-            sequence="20"
+            parent="git_main"
+            sequence="50"
             action="act_open_git_commit_view"/>
 
     </data>

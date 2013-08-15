@@ -72,7 +72,7 @@
         </record>
 
         <menuitem id="menu_git_seting"
-            parent="project.menu_project_management"
+            parent="git_main"
             sequence="20"
             action="act_open_git_seting_view"/>
 
@@ -145,8 +145,8 @@
         </record>
 
         <menuitem id="menu_gir_branches"
-            parent="project.menu_project_management"
-            sequence="20"
+            parent="git_main"
+            sequence="30"
             action="act_open_gir_branches_view"/>
 
         <record id="view_git_project_tree" model="ir.ui.view">
@@ -221,8 +221,8 @@
         </record>
 
         <menuitem id="menu_git_project"
-            parent="project.menu_project_management"
-            sequence="20"
+            parent="git_main"
+            sequence="40"
             action="act_open_git_project_view"/>
     </data>
 </openerp>

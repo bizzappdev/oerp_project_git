@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+        <menuitem id="git_main" name="Git Configurations" parent="base.menu_definitions" sequence="60"/>
         <record id="view_project_project_form" model="ir.ui.view">
             <field name="name">project.project.form</field>
             <field name="model">project.project</field>

@@ -105,7 +105,10 @@ class git_setting(osv.osv):
                 project_data['git_url'].split("/")[-1].split(".")[0])
             if os.path.exists(project_path):
                 git_pro = git.Repo(project_path)
-                git_pro.remotes.origin.pull()
+                try:
+                    git_pro.remotes.origin.pull()
+                except:
+                    pass
 
         return True
 
