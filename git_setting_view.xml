@@ -10,7 +10,6 @@
             <tree string="Git Setting">
                 <field name="name"/>
                 <field name="username"/>
-                <field name="password"/>
                 <field name="git_folder"/>
             </tree>
             </field>

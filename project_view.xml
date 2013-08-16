@@ -14,7 +14,7 @@
                         <group colspan="4" col="4">
                             <field name="git_setting_id"/>
                             <field name="git_path"/>
-                            <field name="git_project_id"/>
+                            <field name="git_project_id" invisible="1"/>
                             <button string="Fetch Repo" name="get_git_repo"
                                 type="object"/>
                             <newline/>
