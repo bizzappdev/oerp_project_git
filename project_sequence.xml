@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for Project Task Tracking -->
+        <record id="seq_type_task_tracking" model="ir.sequence.type">
+            <field name="name">Project Task Tracking</field>
+            <field name="code">project.task.tracking</field>
+        </record>
+
+        <record id="seq_task_tracking" model="ir.sequence">
+            <field name="name">Project Task Tracking</field>
+            <field name="code">project.task.tracking</field>
+            <field name="prefix">#</field>
+            <field name="padding">0</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</openerp>

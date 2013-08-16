@@ -16,7 +16,12 @@
         'project_view.xml',
         'git_commit_view.xml',
         'git_setting_view.xml',
+        'project_sequence.xml',
+        "security/ir.model.access.csv"
     ],
+    'external_dependencies': {
+        'python': ['git'],
+    },
     'installable': True,
     'auto_install': False,
 }
