@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_git_commit_tree" model="ir.ui.view">
+            <field name="name">git.commit.tree</field>
+            <field name="model">git.commit</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <tree string="Git Commit">
+                <field name="message"/>
+                <field name="display_name"/>
+                <field name="author"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="view_git_commit_form" model="ir.ui.view">
+            <field name="name">git.commit.form</field>
+            <field name="model">git.commit</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Git Commit">
+                <field name="git_id"/>
+                <field name="author"/>
+                <field name="name"/>
+                <field name="message"/>
+                <field name="diff" colspan="4" readonly="1" nolabel="1"/>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_git_commit_search" model="ir.ui.view">
+            <field name="name">git.commit.search</field>
+            <field name="model">git.commit</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <search string="Git Commit">
+                <field name="git_id"/>
+                <field name="name"/>
+                <field name="author"/>
+                <field name="message"/>
+            </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_git_commit_view">
+            <field name="name">Git Commit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">git.commit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_git_commit_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_git_commit_view_form">
+            <field name="act_window_id" ref="act_open_git_commit_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_git_commit_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_git_commit_view_tree">
+            <field name="act_window_id" ref="act_open_git_commit_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_git_commit_tree"/>
+        </record>
+
+        <menuitem id="menu_git_commit"
+            parent="git_main"
+            sequence="50"
+            action="act_open_git_commit_view"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <menuitem id="git_main" name="Git Configurations" parent="base.menu_definitions" sequence="60"/>
+        <record id="view_project_project_form" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Git Setting">
+                        <group colspan="4" col="4">
+                            <field name="git_setting_id"/>
+                            <field name="git_path"/>
+                            <field name="git_project_id" invisible="1"/>
+                            <button string="Fetch Repo" name="get_git_repo"
+                                type="object"/>
+                            <newline/>
+                            <separator string="Run time manipulation" colspan="4"/>
+                            <field name="branch_id"
+                                attrs="{'invisible': [('git_project_id','=', False)]}"
+                                on_change="onchange_branch(branch_id, commit_ids)"
+                                domain="[('git_project_id', '=', git_project_id)]"
+                                nolabel="1" placeholder="Select Branch to listout commits"/>
+                            <field name="commit_ids" colspan="4" nolabel="1"/>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_project_task_form" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="before">
+                    <field name="tracking_number" readonly="1"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Commits">
+                        <field name="related_commit_ids" colspan="1"
+                            nolable="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_project_task_kan_form" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="before">
+                    <field name="tracking_number"/><br/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

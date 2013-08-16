@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_git_seting_tree" model="ir.ui.view">
+            <field name="name">git.setting.tree</field>
+            <field name="model">git.setting</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <tree string="Git Setting">
+                <field name="name"/>
+                <field name="username"/>
+                <field name="git_folder"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="view_git_seting_form" model="ir.ui.view">
+            <field name="name">git.setting.form</field>
+            <field name="model">git.setting</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Git Setting">
+                <field name="name" select="1"/>
+                 <field name="username"/>
+                <field name="password" password="1"/>
+                <field name="git_folder"/>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_git_seting_search" model="ir.ui.view">
+            <field name="name">git.setting.search</field>
+            <field name="model">git.setting</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <search string="Git Setting">
+                <field name="name" select="True"/>
+                <field name="username"/>
+                <field name="password"/>
+
+            </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_git_seting_view">
+            <field name="name">Git Setting</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">git.setting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_git_seting_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_git_seting_view_form">
+            <field name="act_window_id" ref="act_open_git_seting_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_git_seting_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_git_seting_view_tree">
+            <field name="act_window_id" ref="act_open_git_seting_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_git_seting_tree"/>
+        </record>
+
+        <menuitem id="menu_git_seting"
+            parent="git_main"
+            sequence="20"
+            action="act_open_git_seting_view"/>
+
+        <record id="view_gir_branches_tree" model="ir.ui.view">
+            <field name="name">git.branch.tree</field>
+            <field name="model">git.branch</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <tree string="Branches">
+                <field name="name"/>
+                <field name="git_project_id"/>
+                <field name="commit_ids"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="view_gir_branches_form" model="ir.ui.view">
+            <field name="name">git.branch.form</field>
+            <field name="model">git.branch</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Branches">
+                <field name="name" select="1"/>
+                <field name="git_project_id"/>
+                <separator string="Commits" colspan="4"/>
+                <field name="commit_ids" colspan="4" nolabel="1"/>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_gir_branches_search" model="ir.ui.view">
+            <field name="name">git.branch.search</field>
+            <field name="model">git.branch</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <search string="Branches">
+                <field name="name" select="True"/>
+                <field name="git_project_id"/>
+                <field name="commit_ids"/>
+            </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_gir_branches_view">
+            <field name="name">Branches</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">git.branch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_gir_branches_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_gir_branches_view_form">
+            <field name="act_window_id" ref="act_open_gir_branches_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_gir_branches_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_gir_branches_view_tree">
+            <field name="act_window_id" ref="act_open_gir_branches_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_gir_branches_tree"/>
+        </record>
+
+        <menuitem id="menu_gir_branches"
+            parent="git_main"
+            sequence="30"
+            action="act_open_gir_branches_view"/>
+
+        <record id="view_git_project_tree" model="ir.ui.view">
+            <field name="name">git.project.tree</field>
+            <field name="model">git.project</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <tree string="Git Project">
+                <field name="git_path"/>
+                <field name="project_id"/>
+                <field name="git_setting_id"/>
+                <field name="branch_ids"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="view_git_project_form" model="ir.ui.view">
+            <field name="name">git.project.form</field>
+            <field name="model">git.project</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Git Project">
+                <field name="git_path"/>
+                <field name="project_id"/>
+                <field name="git_setting_id"/>
+                <separator string="Branches" colspan="4"/>
+                <field name="branch_ids" nolabel="1" colspan="4"/>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_git_project_search" model="ir.ui.view">
+            <field name="name">git.project.search</field>
+            <field name="model">git.project</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <search string="Git Project">
+                <field name="git_path"/>
+                <field name="project_id"/>
+                <field name="git_setting_id"/>
+                <field name="branch_ids"/>
+            </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_git_project_view">
+            <field name="name">Git Project</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">git.project</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_git_project_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_git_project_view_form">
+            <field name="act_window_id" ref="act_open_git_project_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_git_project_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_git_project_view_tree">
+            <field name="act_window_id" ref="act_open_git_project_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_git_project_tree"/>
+        </record>
+
+        <menuitem id="menu_git_project"
+            parent="git_main"
+            sequence="40"
+            action="act_open_git_project_view"/>
+    </data>
+</openerp>
